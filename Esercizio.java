@@ -1,26 +1,74 @@
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
+import java.util.*;
+import java.lang.Math;
 
-//Import di Classi Java necessarie al funzionamento del programma
-import java.util.Scanner;
+class Program {
+    private static Random random = new Random();
+    private static Scanner input = new Scanner(System.in);
 
-// Classe principale, con metodo main
-class Esercizio {
-    // Il programma parte con una chiamata a main().
-    public static void main(String args[])
-    {
-        //Variabili del programma
-        String nome;
+    public static int elimina(int v, int n, int ie) {
+        int n;
 
-        //Creo l'oggetto in per l'input da tastiera
-        Scanner in = new Scanner( System.in );
-
-        //Leggo l'input da tastiera
-        System.out.print("Inserisci il tuo nome: ");
-        nome = in.nextLine();
-
-        //Output del nome acquisito da tastiera
-        System.out.println("Ciao "+nome+"!");
+        n = n - 1;
+        for (i = ie; i <= n - 2; i++) {
+            v[i] = v[i + 1];
+        }
+        
+        return n;
     }
-}
+    
+    public static int eliminaDup(int[] v, int n) {
+        int n, i, j;
+        boolean e;
 
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
+        for (i = 0; i <= n - 1; i++) {
+            j = j + 1;
+            while (j < n - 1) {
+                if (v[i] == v[j]) {
+                    n = elimina(v, n, v[j]);
+                } else {
+                    j = j + 1;
+                }
+            }
+        }
+        
+        return n;
+    }
+    
+    public static void riempi(int[] v, int n) {
+        int i;
+
+        for (i = 0; i <= n - 1; i++) {
+            v[i] = (3 + random.nextInt(7)) * 10;
+        }
+    }
+    
+    public static void visualizza(int[] v, int n) {
+        int i;
+
+        for (i = 0; i <= n - 1; i++) {
+            System.out.println(Integer.toString(i) + ">> " + v[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        int n, i, j, c, p, k;
+
+        n = input.nextInt();
+        int[] v = new int[n];
+
+        riempi(v, n);
+        for (i = 0; i <= n - 1; i++) {
+            for (j = i + 1; j <= n - 2; j++) {
+                if (v[j] < v[i]) {
+                    n = elimina(v, n, v[i]);
+                }
+            }
+        }
+        n = eliminaDup(v, n);
+        for (i = 0; i <= n - 1; i++) {
+            visualizza(v, n);
+        }
+    }
+    
+}
+   
